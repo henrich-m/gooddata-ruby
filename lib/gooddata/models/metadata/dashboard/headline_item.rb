@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -17,11 +18,11 @@ module GoodData
       }
     }
 
-    ASSIGNABLE_MEMBERS = DashboardItem::ASSIGNABLE_MEMBERS + [
-      :id,
-      :metric,
-      :linked_with_external_filter
-    ]
+    ASSIGNABLE_MEMBERS = DashboardItem::ASSIGNABLE_MEMBERS + %i(
+      id
+      metric
+      linked_with_external_filter
+    )
 
     class << self
       def create(tab, item)

@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -294,7 +295,7 @@ module GoodData
                     login = e[:login]
                     if enough
                       y = e[:filters].pmapcat { |f| create_filter_proc.call(login, f) }
-                      [!y.any? { |r| r[:type] == :error }, a.concat(y)]
+                      [y.none? { |r| r[:type] == :error }, a.concat(y)]
                     else
                       [false, a]
                     end

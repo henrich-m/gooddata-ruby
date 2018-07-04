@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -105,7 +106,7 @@ module GoodData
     alias_method :channel_id, :obj_id
 
     def ==(other)
-      return false unless [:to, :title].all? { |m| other.respond_to?(m) }
+      return false unless %i(to title).all? { |m| other.respond_to?(m) }
       @to == other.to && @title == other.title
     end
   end

@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -37,11 +38,11 @@ module GoodData
         param :input_source, instance_of(Type::HashType), required: true
       end
 
-      RESULT_HEADER = [
-        :client,
-        :segment_id,
-        :title
-      ]
+      RESULT_HEADER = %i(
+        client
+        segment_id
+        title
+      )
 
       class << self
         def call(params)

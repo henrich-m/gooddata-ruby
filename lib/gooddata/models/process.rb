@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -186,8 +187,8 @@ module GoodData
       def deploy_component(data, options = { client: GoodData.client, project: GoodData.project })
         client, project = GoodData.get_client_and_project(options)
         data = { process: data } unless data[:process]
-        data[:process] = GoodData::Helpers.symbolize_keys(data[:process]).select { |k| [:type, :name, :component].include? k }
-        data[:process][:component] = GoodData::Helpers.symbolize_keys(data[:process][:component]).select { |k| [:name, :version].include? k }
+        data[:process] = GoodData::Helpers.symbolize_keys(data[:process]).select { |k| %i(type name component).include? k }
+        data[:process][:component] = GoodData::Helpers.symbolize_keys(data[:process][:component]).select { |k| %i(name version).include? k }
 
         # a feature flag is required to create component type processes
         client.post "/gdc/projects/#{project.pid}/projectFeatureFlags",

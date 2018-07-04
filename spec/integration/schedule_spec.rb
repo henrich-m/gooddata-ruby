@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -224,7 +225,7 @@ describe GoodData::Schedule do
         schedule = process.create_schedule('0 15 27 7 *', process.executables.first)
         res = schedule.execute
         expect(res).to be_an_instance_of(GoodData::Execution)
-        expect([:ok, :error].include?(res.status)).to be_truthy
+        expect(%i(ok error).include?(res.status)).to be_truthy
       ensure
         schedule && schedule.delete
         process && process.delete
@@ -239,7 +240,7 @@ describe GoodData::Schedule do
         schedule = process.create_schedule('0 15 27 7 *', process.executables.first)
         res = schedule.execute(:wait => false)
         expect(res).to be_an_instance_of(GoodData::Execution)
-        expect([:scheduled, :running].include?(res.status)).to be_truthy
+        expect(%i(scheduled running).include?(res.status)).to be_truthy
       ensure
         schedule && schedule.delete
         process && process.delete

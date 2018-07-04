@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -39,7 +40,7 @@ module GoodData
       end
 
       def create(opts = { client: GoodData.connection })
-        [:email, :events, :project, :process].each { |key| fail "No #{key.inspect} specified" unless opts[key] }
+        %i(email events project process).each { |key| fail "No #{key.inspect} specified" unless opts[key] }
 
         pid = (opts[:project].respond_to?(:pid) && opts[:project].pid) || opts[:project]
         process_id = (opts[:process].respond_to?(:process_id) && opts[:process].process_id) || opts[:process]
@@ -102,7 +103,7 @@ module GoodData
     end
 
     def ==(other)
-      return false unless [:email, :subject, :body, :events].all? { |m| other.respond_to?(m) }
+      return false unless %i(email subject body events).all? { |m| other.respond_to?(m) }
       @email == other.email && @subject == other.subject && @body == other.body && @events == other.events
     end
 

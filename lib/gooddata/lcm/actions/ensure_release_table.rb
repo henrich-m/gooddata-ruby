@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -19,10 +20,10 @@ module GoodData
         param :release_table_name, instance_of(Type::StringType), required: false
       end
 
-      RESULT_HEADER = [
-        :table_name,
-        :status
-      ]
+      RESULT_HEADER = %i(
+        table_name
+        status
+      )
 
       DEFAULT_TABLE_NAME = 'LCM_RELEASE'
 

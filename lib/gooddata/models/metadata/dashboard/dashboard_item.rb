@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -11,14 +12,14 @@ module GoodData
     attr_reader :tab
     attr_accessor :json
 
-    ASSIGNABLE_MEMBERS = [
-      :pos_x,
-      :pos_y,
-      :position_x,
-      :position_y,
-      :size_x,
-      :size_y
-    ]
+    ASSIGNABLE_MEMBERS = %i(
+      pos_x
+      pos_y
+      position_x
+      position_y
+      size_x
+      size_y
+    )
 
     def initialize(tab, json)
       @tab = tab

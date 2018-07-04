@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -268,7 +269,7 @@ module GoodData
         d[:columns] = d[:columns] + b_schema_blueprint[:columns]
         d[:columns].uniq!
         columns_that_failed_to_merge = d[:columns]
-          .group_by { |x| [:reference, :date].include?(x[:type]) ? x[:dataset] : x[:id] }
+          .group_by { |x| %i(reference date).include?(x[:type]) ? x[:dataset] : x[:id] }
           .map { |k, v| [k, v.count, v] }.select { |x| x[1] > 1 }
         unless columns_that_failed_to_merge.empty?
           columns_that_failed_to_merge.each do |error|

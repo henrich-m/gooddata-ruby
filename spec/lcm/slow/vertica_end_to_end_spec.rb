@@ -24,10 +24,10 @@ describe 'the whole life-cycle' do
       auth_token: LcmConnectionHelper.environment[:vertica_prod_token]
     )
     @ads_client = GoodData::Datawarehouse.new(
-        LcmConnectionHelper.environment[:username],
-        LcmConnectionHelper.environment[:password],
-        nil,
-        jdbc_url: @ads.data['connectionUrl']
+      LcmConnectionHelper.environment[:username],
+      LcmConnectionHelper.environment[:password],
+      nil,
+      jdbc_url: @ads.data['connectionUrl']
     )
     @opts = {
       client: @prod_rest_client,
@@ -49,7 +49,7 @@ describe 'the whole life-cycle' do
     LcmHelper.create_workspace_table(@workspace_table_name, @ads_client)
     @project = project_helper.project
     ws = {
-        client_id: "CAR_DEMO_#{@suffix}",
+      client_id: "CAR_DEMO_#{@suffix}",
         segment_id: premium_segment,
         title: "Car Demo Workspace #{@suffix}"
     }

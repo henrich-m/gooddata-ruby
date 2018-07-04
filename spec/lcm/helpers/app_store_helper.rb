@@ -15,7 +15,7 @@ module GoodData
           path = tempfile.path
 
           CSV.open(path, 'w') do |csv|
-            data.each { |row| csv << row}
+            data.each { |row| csv << row }
           end
           project.upload_file(path)
         ensure
@@ -25,11 +25,9 @@ module GoodData
       end
 
       def self.remove_segment(domain, segment_name)
-        begin
-          domain.segments(segment_name).delete(force: true)
-        rescue
-          # Segment already deleted
-        end
+        domain.segments(segment_name).delete(force: true)
+      rescue
+        # Segment already deleted
       end
 
       def self.remove_test_projects(client, slug)
@@ -61,14 +59,16 @@ module GoodData
           ['fact.lines_changed', 'committed_on', 'devs'],
           [1, '01/01/2014', 1],
           [3, '01/02/2014', 2],
-          [5, '05/02/2014', 3]]
+          [5, '05/02/2014', 3]
+        ]
         project.upload(commits_data, blueprint, 'commits')
 
         devs_data = [
           ['label.dev_id', 'label.dev_email'],
           [1, 'tomas@gooddata.com'],
           [2, 'petr@gooddata.com'],
-          [3, 'jirka@gooddata.com']]
+          [3, 'jirka@gooddata.com']
+        ]
         project.upload(devs_data, blueprint, 'devs')
 
         # deploy process

@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -36,18 +37,18 @@ module GoodData
       }
     }
 
-    ASSIGNABLE_MEMBERS = [
-      :company,
-      :country,
-      :email,
-      :login,
-      :first_name,
-      :last_name,
-      :phone,
-      :position,
-      :timezone,
-      :language
-    ]
+    ASSIGNABLE_MEMBERS = %i(
+      company
+      country
+      email
+      login
+      first_name
+      last_name
+      phone
+      position
+      timezone
+      language
+    )
 
     PROFILE_PATH = '/gdc/account/profile/%s'
 
@@ -134,7 +135,7 @@ module GoodData
     # @param right [GoodData::Profile] Project to compare with
     # @return [Boolean] True if different else false
     def !=(other)
-      !(self == other)
+      self != other
     end
 
     # Apply changes to object.
@@ -426,12 +427,12 @@ module GoodData
     def to_hash
       tmp = GoodData::Helpers.symbolize_keys(content.merge(uri: uri))
       [
-        [:companyName, :company],
-        [:phoneNumber, :phone],
-        [:firstName, :first_name],
-        [:lastName, :last_name],
-        [:authenticationModes, :authentication_modes],
-        [:ssoProvider, :sso_provider]
+        %i(companyName company),
+        %i(phoneNumber phone),
+        %i(firstName first_name),
+        %i(lastName last_name),
+        %i(authenticationModes authentication_modes),
+        %i(ssoProvider sso_provider)
       ].each do |vals|
         wire, rb = vals
         tmp[rb] = tmp[wire]

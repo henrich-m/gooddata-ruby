@@ -19,8 +19,10 @@ module Support
       @project = project if project.instance_of? GoodData::Project
       @project = client.projects(project) if project.instance_of? String
       GoodData.logger.info "Project ID: #{@project.obj_id}"
-      raise 'ProjectHelper::initialize the parameter "project" '\
-            'must be GoodData::Project or String.' unless @project
+      unless @project
+        raise 'ProjectHelper::initialize the parameter "project" '\
+              'must be GoodData::Project or String.'
+      end
     end
 
     def create_ldm(blueprint_path = BLUEPRINT_FILE)
@@ -83,7 +85,7 @@ module Support
         add_process.create_schedule(
           ruby_schedule,
           '',
-          dataload_datasets: [ DATASET_IDENTIFIER ],
+          dataload_datasets: [DATASET_IDENTIFIER],
           de_synchronize_all: true,
           state: 'DISABLED'
         )
@@ -166,7 +168,7 @@ module Support
                                 position_x: 0,
                                 position_y: 0,
                                 size_x: 640,
-                                size_y:100)
+                                size_y: 100)
           end
           dashboard_name = d['title'].to_s.downcase.gsub(/\s/, '.')
           dashboard.identifier = "dashboard.#{dashboard_name}"
@@ -188,9 +190,7 @@ module Support
 
     def ensure_user(login, domain)
       user = domain.users(login)
-      unless user
-        user = domain.add_user(login: login)
-      end
+      user = domain.add_user(login: login) unless user
       @project.add_user(user, 'Viewer', domain: domain)
       user
     end

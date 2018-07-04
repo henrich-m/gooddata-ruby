@@ -8,7 +8,6 @@ def read_params(_args = ARGV)
   GoodData::Helpers.deep_symbolize_keys(params)
 end
 
-
 def connect(params)
   GoodData.connect(params[:username], params[:password], server: params[:server], verify_ssl: params[:verify_ssl])
 end
@@ -51,6 +50,4 @@ def main(args = ARGV)
   delete_segments(client, params)
 end
 
-if $PROGRAM_NAME == __FILE__
-  main(ARGV)
-end
+main(ARGV) if $PROGRAM_NAME == __FILE__

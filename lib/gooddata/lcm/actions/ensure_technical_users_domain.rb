@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -29,12 +30,12 @@ module GoodData
         param :technical_users, array_of(instance_of(Type::StringType)), required: false
       end
 
-      RESULT_HEADER = [
-        :login,
-        :email,
-        :domain,
-        :status
-      ]
+      RESULT_HEADER = %i(
+        login
+        email
+        domain
+        status
+      )
 
       class << self
         def call(params)

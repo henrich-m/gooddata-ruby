@@ -179,9 +179,9 @@ describe 'the whole life-cycle' do
       @test_context[:input_source_type] = 'ads'
       # add another workspace to provision
       @workspaces << {
-          client_id: "INSURANCE_DEMO_NEW_#{@suffix}",
-          segment_id: @workspaces.first[:segment_id],
-          title: "Insurance Demo Workspace NEW #{@suffix}"
+        client_id: "INSURANCE_DEMO_NEW_#{@suffix}",
+        segment_id: @workspaces.first[:segment_id],
+        title: "Insurance Demo Workspace NEW #{@suffix}"
       }
       # copy existing workspaces ADS as we change data source
       @workspaces.each do |ws|

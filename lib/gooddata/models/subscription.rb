@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -62,7 +63,7 @@ module GoodData
       def create(opts = { client: GoodData.connection })
         c = GoodData.get_client(opts)
 
-        [:project, :channels, :process, :project_events].each { |key| fail "No #{key.inspect} specified" unless opts[key] }
+        %i(project channels process project_events).each { |key| fail "No #{key.inspect} specified" unless opts[key] }
 
         pid = (opts[:project].respond_to?(:pid) && opts[:project].pid) || opts[:project]
         project_events = (opts[:project_events].respond_to?(:each) && opts[:project_events]) || [opts[:project_events]]
@@ -174,7 +175,7 @@ module GoodData
     end
 
     def ==(other)
-      return false unless [:project, :title, :process, :channels, :message, :subject, :project_events, :timer_event].all? { |m| other.respond_to?(m) }
+      return false unless %i(project title process channels message subject project_events timer_event).all? { |m| other.respond_to?(m) }
       @project == other.project &&
         @title == other.title &&
         @process == other.process &&

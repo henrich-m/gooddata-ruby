@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -50,8 +51,8 @@ module GoodData
         params[:limit] = 100_000
         results, = valid_elements params
         if params[:filter]
-          results['validElements']['items'] = results['validElements']['items'].reject do |i|
-            i['element']['title'] != params[:filter]
+          results['validElements']['items'] = results['validElements']['items'].select do |i|
+            i['element']['title'] == params[:filter]
           end
         end
       end

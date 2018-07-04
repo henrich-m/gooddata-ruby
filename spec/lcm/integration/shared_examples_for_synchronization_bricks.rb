@@ -68,7 +68,7 @@ shared_examples 'a synchronization brick' do
     expect(new_attributes.length).to be 32
     original_attributes.each do |attribute|
       next unless attribute.content['displayForms'] &&
-      attribute.content['displayForms'].any?
+                  attribute.content['displayForms'].any?
       new_attribute = new_attributes.find do |a|
         a.identifier == attribute.identifier
       end
@@ -151,7 +151,7 @@ shared_examples 'a synchronization brick' do
 
   it 'does not migrate variables' do
     projects.each do |project|
-       expect(project.variables.to_a).to be_empty
+      expect(project.variables.to_a).to be_empty
     end
   end
 end

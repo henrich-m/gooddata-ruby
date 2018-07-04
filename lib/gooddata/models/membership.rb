@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -17,15 +18,15 @@ module GoodData
   class Membership < Rest::Resource
     attr_reader :json
 
-    ASSIGNABLE_MEMBERS = [
-      :email,
-      :first_name,
-      :last_name,
-      :login,
-      :phone,
-      :status,
-      :title
-    ]
+    ASSIGNABLE_MEMBERS = %i(
+      email
+      first_name
+      last_name
+      login
+      phone
+      status
+      title
+    )
 
     class << self
       # Apply changes to object.
@@ -93,7 +94,7 @@ module GoodData
     # @param right [GoodData::User] Project to compare with
     # @return [Boolean] True if different else false
     def !=(other)
-      !(self == other)
+      self != other
     end
 
     # Apply changes to object.
@@ -398,12 +399,12 @@ module GoodData
     def to_hash
       tmp = GoodData::Helpers.symbolize_keys(content.merge(meta).merge('uri' => uri))
       [
-        [:userRoles, :role],
-        [:companyName, :company_name],
-        [:phoneNumber, :phone_number],
-        [:firstname, :first_name],
-        [:lastname, :last_name],
-        [:authenticationModes, :authentication_modes]
+        %i(userRoles role),
+        %i(companyName company_name),
+        %i(phoneNumber phone_number),
+        %i(firstname first_name),
+        %i(lastname last_name),
+        %i(authenticationModes authentication_modes)
       ].each do |vals|
         wire, rb = vals
         tmp[rb] = tmp[wire]

@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -38,13 +39,13 @@ module GoodData
       end
 
       # will be updated later based on the way etl synchronization
-      RESULT_HEADER = [
-        :segment,
-        :master_project,
-        :client_id,
-        :client_project,
-        :status
-      ]
+      RESULT_HEADER = %i(
+        segment
+        master_project
+        client_id
+        client_project
+        status
+      )
 
       class << self
         def call(params)

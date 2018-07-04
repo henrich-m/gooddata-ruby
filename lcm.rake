@@ -6,33 +6,33 @@ require 'rspec/core/rake_task'
 # Schema for new Bricks.
 brick_info_schema = {
   "type" => "object",
-  "required" => ["name","version","language","created"],
+  "required" => ["name", "version", "language", "created"],
   "properties" => {
-    "name" => {"type" => "string"},
+    "name" => { "type" => "string" },
     "author" => {
-        "type" => "object",
+      "type" => "object",
         "properties" => {
-          "name" => {"type" => "string"},
-          "email" => {"type" => "string"}
+          "name" => { "type" => "string" },
+          "email" => { "type" => "string" }
         }
     },
-    "created" => {"type" => "string"},
-    "version" => {"type" => "string"},
-    "category" => {"type" => "string"},
-    "language" => {"type" => "string"},
-    "description" => { "type" => "string"},
-    "tags" => {"type" => "string"},
-    "is_live" => {"type" => "boolean"},
+    "created" => { "type" => "string" },
+    "version" => { "type" => "string" },
+    "category" => { "type" => "string" },
+    "language" => { "type" => "string" },
+    "description" => { "type" => "string" },
+    "tags" => { "type" => "string" },
+    "is_live" => { "type" => "boolean" },
     "parameters" => {
-        "type" => "array",
+      "type" => "array",
         "properties" => {
-          "name" => {"type" => "string"},
-          "description" => {"type" => "string"},
-          "type" => {"type" => "string"},
-          "mandatory" => {"type" => "boolean"},
+          "name" => { "type" => "string" },
+          "description" => { "type" => "string" },
+          "type" => { "type" => "string" },
+          "mandatory" => { "type" => "boolean" }
         }
     }
-  },
+  }
 }
 
 check_exit_code = <<-EOT
@@ -64,7 +64,7 @@ task :default do
 end
 
 desc 'Writes JSON file to location.'
-task :write, :file do |w, bricks|
+task :write, :file do |_w, bricks|
   require 'json'
 
   File.open("./build/bricks.json", 'w') do |f|
@@ -163,7 +163,7 @@ namespace :sdk do
     new_ref.split(',').last.strip.scan(/'([\w,\.]+)'/).flatten.first
   end
 
-  def cmd cmdname, *args, &block
+  def cmd(cmdname, *args, &block)
     require 'open3'
     begin
       puts "running $ #{([cmdname] + args).join(' ')}"
@@ -188,7 +188,7 @@ namespace :sdk do
   end
 
   desc 'Synchronizes changelogs with gooddata-ruby'
-  task :changelog, [:new_appstore_version] do |t, args|
+  task :changelog, [:new_appstore_version] do |_t, args|
     new_appstore_version = args[:new_appstore_version]
 
     last_vers = '0.0.0'
@@ -196,16 +196,15 @@ namespace :sdk do
       if ok
         res.lines.each do |line|
           line.strip!
-          if line =~ /^[0-9]+\.[0-9]+\.[0-9]+(-rc[0-9]+)?.*$/
-            first = line.split(/[^\d]+/)
-            second = last_vers.split(/[^\d]+/)
-            (0..[first.length, second.length].max-1).each_with_index do |val, index|
-              if first[index].to_i > second[index].to_i
-                last_vers = line
-                break
-              elsif second[index].to_i > first[index].to_i
-                break
-              end
+          next unless line =~ /^[0-9]+\.[0-9]+\.[0-9]+(-rc[0-9]+)?.*$/
+          first = line.split(/[^\d]+/)
+          second = last_vers.split(/[^\d]+/)
+          (0..[first.length, second.length].max - 1).each_with_index do |_val, index|
+            if first[index].to_i > second[index].to_i
+              last_vers = line
+              break
+            elsif second[index].to_i > first[index].to_i
+              break
             end
           end
         end
@@ -248,10 +247,10 @@ namespace :sdk do
         cmd 'git', 'log', '--no-merges', "#{gdruby_version_from_log}..#{gdruby_version_from_gemfile}" do |ok, out|
           if ok
             out.lines.each do |gitline|
-              if gitline =~/^commit [0-9a-z]+$/ and not newsection
+              if gitline =~ (^commit [0-9a-z]+$/) && (!newsection)
                 newsection = true
                 next
-              elsif gitline =~ /^    .+$/ and newsection
+              elsif gitline =~(/^    .+$/) && newsection
                 file.write("- " + gitline.strip + "\n")
                 newsection = false
               end
@@ -268,16 +267,16 @@ end
 
 desc 'Releases new AppStore version. Uses version passed as an argument. \
       Otherwise increments patch version.'
-task :release, [:version] do |t, args|
+task :release, [:version] do |_t, args|
   new_appstore_version = args[:version]
   if new_appstore_version.nil?
-    new_appstore_version = File.open('VERSION').read().strip
+    new_appstore_version = File.open('VERSION').read.strip
     version = new_appstore_version.split('.')
     version[2] = (version[2].to_i + 1).to_s
     new_appstore_version = version.join('.')
   end
 
-  File.open('VERSION', 'w+t') {|file| file.write(new_appstore_version + "\n")}
+  File.open('VERSION', 'w+t') { |file| file.write(new_appstore_version + "\n") }
   cmd 'git', 'add', 'VERSION'
 
   Rake::Task["sdk:changelog"].invoke(new_appstore_version)

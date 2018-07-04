@@ -13,36 +13,36 @@ def prepare_visualisation_object(rest_client, project)
   visualization_class = visualization_classes.first
   attribute = project.attributes.first
   visualization_data = {
-   visualizationObject: {
-     content: {
-       visualizationClass: {
-         uri: visualization_class.uri
-       },
-       buckets: [{
-         localIdentifier: "measure",
-         items: [{
-           measure: {
-             localIdentifier: "M1",
-             title: "Count of Account",
-             format: "#,##0.00",
-             definition: {
-               measureDefinition: {
-                 item: {
-                   uri: attribute.uri
-                 },
-                 aggregation: "count"
-               }
-             }
-           }
-         }]
-       }]
-     },
-     meta: {}
-   }
+    visualizationObject: {
+      content: {
+        visualizationClass: {
+          uri: visualization_class.uri
+        },
+        buckets: [{
+          localIdentifier: "measure",
+          items: [{
+            measure: {
+              localIdentifier: "M1",
+              title: "Count of Account",
+              format: "#,##0.00",
+              definition: {
+                measureDefinition: {
+                  item: {
+                    uri: attribute.uri
+                  },
+                  aggregation: "count"
+                }
+              }
+            }
+          }]
+        }]
+      },
+      meta: {}
+    }
   }
   v = GoodData::MdObject.new(visualization_data.deep_stringify_keys)
   v.title = 'Foo'
-  v.project =  project
+  v.project = project
   v.client  = rest_client
   v.save
 end
@@ -96,7 +96,7 @@ describe 'release brick' do
       s3_key: 'user_data',
       data_product: data_product_id,
       jdbc_url: @ads.data['connectionUrl'],
-      basic_master_name: basic_master_name,
+      basic_master_name: basic_master_name
     }
 
     template_path = File.expand_path('../params/release_brick_transfer_all.json.erb', __FILE__)

@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -29,63 +30,65 @@ module GoodData
 
       def self.users_brick_pipeline
         prepare([
-          DecodeParamsMiddleware,
-          LoggerMiddleware,
-          BenchMiddleware,
-          GoodDataMiddleware,
-          AWSMiddleware,
-          WarehouseMiddleware,
-          FsProjectUploadMiddleware.new(:destination => :staging),
-          UsersBrick])
+                  DecodeParamsMiddleware,
+                  LoggerMiddleware,
+                  BenchMiddleware,
+                  GoodDataMiddleware,
+                  AWSMiddleware,
+                  WarehouseMiddleware,
+                  FsProjectUploadMiddleware.new(:destination => :staging),
+                  UsersBrick
+                ])
       end
 
       def self.user_filters_brick_pipeline
         prepare([
-          DecodeParamsMiddleware,
-          LoggerMiddleware,
-          BenchMiddleware,
-          GoodDataMiddleware,
-          AWSMiddleware,
-          FsProjectDownloadMiddleware.new(:source => :staging),
-          FsProjectUploadMiddleware.new(:destination => :staging),
-          WarehouseMiddleware,
-          UserFiltersBrick])
+                  DecodeParamsMiddleware,
+                  LoggerMiddleware,
+                  BenchMiddleware,
+                  GoodDataMiddleware,
+                  AWSMiddleware,
+                  FsProjectDownloadMiddleware.new(:source => :staging),
+                  FsProjectUploadMiddleware.new(:destination => :staging),
+                  WarehouseMiddleware,
+                  UserFiltersBrick
+                ])
       end
 
       def self.release_brick_pipeline
         prepare([
-        DecodeParamsMiddleware,
-        LoggerMiddleware,
-        BenchMiddleware,
-        GoodDataMiddleware,
-        AWSMiddleware,
-        WarehouseMiddleware,
-        ReleaseBrick
-        ])
+                  DecodeParamsMiddleware,
+                  LoggerMiddleware,
+                  BenchMiddleware,
+                  GoodDataMiddleware,
+                  AWSMiddleware,
+                  WarehouseMiddleware,
+                  ReleaseBrick
+                ])
       end
 
       def self.provisioning_brick_pipeline
         prepare([
-        DecodeParamsMiddleware,
-        LoggerMiddleware,
-        BenchMiddleware,
-        GoodDataMiddleware,
-        AWSMiddleware,
-        WarehouseMiddleware,
-        ProvisioningBrick
-        ])
+                  DecodeParamsMiddleware,
+                  LoggerMiddleware,
+                  BenchMiddleware,
+                  GoodDataMiddleware,
+                  AWSMiddleware,
+                  WarehouseMiddleware,
+                  ProvisioningBrick
+                ])
       end
 
       def self.rollout_brick_pipeline
         prepare([
-        DecodeParamsMiddleware,
-        LoggerMiddleware,
-        BenchMiddleware,
-        GoodDataMiddleware,
-        AWSMiddleware,
-        WarehouseMiddleware,
-        RolloutBrick
-        ])
+                  DecodeParamsMiddleware,
+                  LoggerMiddleware,
+                  BenchMiddleware,
+                  GoodDataMiddleware,
+                  AWSMiddleware,
+                  WarehouseMiddleware,
+                  RolloutBrick
+                ])
       end
     end
   end
