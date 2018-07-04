@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -31,14 +32,14 @@ module GoodData
         param :gdc_logger, instance_of(Type::GdLogger), required: true
       end
 
-      RESULT_HEADER = [
-        :from,
-        :to,
-        :process_name,
-        :schedule_name,
-        :type,
-        :state
-      ]
+      RESULT_HEADER = %i(
+        from
+        to
+        process_name
+        schedule_name
+        type
+        state
+      )
 
       class << self
         def call(params)

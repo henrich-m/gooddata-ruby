@@ -38,7 +38,7 @@ describe 'UsersBrick' do
     @user_name = "#{@suffix}@bar.baz"
     project_helper.ensure_user(@user_name, @domain)
     @user_data = {
-        login: @user_name,
+      login: @user_name,
         first_name: 'first',
         last_name: 'last',
         company: 'GoodData',
@@ -117,7 +117,7 @@ describe 'UsersBrick' do
       $SCRIPT_PARAMS = JSON.parse(File.read(@config_path))
       load 'users_brick/main.rb'
       user_array.each do |u|
-        this_project = project_array.detect {|project| project.title.include? u[:client_id] }
+        this_project = project_array.detect { |project| project.title.include? u[:client_id] }
         expect(this_project.member?(u)).to be_truthy unless this_project.nil?
       end
     end

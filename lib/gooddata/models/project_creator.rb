@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -130,8 +131,8 @@ module GoodData
           preference = Hash[preference.map { |k, v| [k, GoodData::Helpers.to_boolean(v)] }]
 
           # will use new parameters instead of the old ones
-          if preference.empty? || [:allow_cascade_drops, :keep_data].any? { |k| preference.key?(k) }
-            if [:cascade_drops, :preserve_data].any? { |k| preference.key?(k) }
+          if preference.empty? || %i(allow_cascade_drops keep_data).any? { |k| preference.key?(k) }
+            if %i(cascade_drops preserve_data).any? { |k| preference.key?(k) }
               fail "Please do not mix old parameters (:cascade_drops, :preserve_data) with the new ones (:allow_cascade_drops, :keep_data)."
             end
             preference = { allow_cascade_drops: false, keep_data: true }.merge(preference)
@@ -164,8 +165,8 @@ module GoodData
           results_from_api = GoodData::Helpers.join(
             rules,
             stuff,
-            [:cascade_drops, :preserve_data],
-            [:cascade_drops, :preserve_data],
+            %i(cascade_drops preserve_data),
+            %i(cascade_drops preserve_data),
             inner: true
           ).sort_by { |l| l[:priority] } || []
 

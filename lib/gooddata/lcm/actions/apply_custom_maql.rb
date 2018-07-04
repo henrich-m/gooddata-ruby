@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -36,11 +37,11 @@ module GoodData
         param :data_product, instance_of(Type::GDDataProductType), required: false
       end
 
-      RESULT_HEADER = [
-        :segment,
-        :maql,
-        :status
-      ]
+      RESULT_HEADER = %i(
+        segment
+        maql
+        status
+      )
 
       class << self
         def call(params)

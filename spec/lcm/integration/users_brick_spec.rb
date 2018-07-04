@@ -33,7 +33,7 @@ describe 'UsersBrick' do
     @user_name = "#{@suffix}@bar.baz"
     project_helper.ensure_user(@user_name, @domain)
     @user_data = {
-        login: @user_name,
+      login: @user_name,
         first_name: 'first',
         last_name: 'last',
         company: 'GoodData',

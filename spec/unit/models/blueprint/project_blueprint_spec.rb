@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -37,7 +38,7 @@ describe GoodData::Model::ProjectBlueprint do
       end
       expect(bp.valid?).to be_falsey
       errors = bp.validate
-      expect(errors.map { |x| x[:type] }.to_set).to eq [:attribute_without_label, :more_than_on_anchor].to_set
+      expect(errors.map { |x| x[:type] }.to_set).to eq %i(attribute_without_label more_than_on_anchor).to_set
       expect(errors.count).to eq 2
     end
 
@@ -398,7 +399,7 @@ describe GoodData::Model::ProjectBlueprint do
   it "should be able to serialize itself to a hash" do
     ser = @blueprint.to_hash
     ser.is_a?(Hash)
-    expect(ser.keys).to eq [:title, :datasets, :date_dimensions, :include_ca]
+    expect(ser.keys).to eq %i(title datasets date_dimensions include_ca)
   end
 
   it "should be able to tell you whether a dataset is referencing any others including date dimensions" do

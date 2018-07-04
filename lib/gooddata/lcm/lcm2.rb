@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -165,8 +166,8 @@ module GoodData
         params.keys.each do |k|
           params[k.downcase] = params[k]
         end
-        params.reject! do |k, _|
-          k.downcase != k
+        params.select! do |k, _|
+          k.downcase == k
         end
         convert_to_smart_hash(params)
       end
@@ -370,15 +371,15 @@ module GoodData
       end
 
       def check_unused_params(actions, params)
-        default_params = [
-          :client_gdc_hostname,
-          :client_gdc_protocol,
-          :fail_early,
-          :gdc_logger,
-          :gdc_password,
-          :gdc_username,
-          :strict
-        ]
+        default_params = %i(
+          client_gdc_hostname
+          client_gdc_protocol
+          fail_early
+          gdc_logger
+          gdc_password
+          gdc_username
+          strict
+        )
 
         action_params = actions.map do |action|
           action.const_get(:PARAMS).keys.map(&:downcase)

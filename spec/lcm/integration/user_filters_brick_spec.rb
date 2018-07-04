@@ -74,10 +74,10 @@ shared_context 'user filters brick test context' do
     )
 
     upload_user_filters_csv([{
-                                 login: 'rubydev+admin@gooddata.com',
+                              login: 'rubydev+admin@gooddata.com',
                                  state: 'Washington',
                                  client_id: 'testingclient'
-                             }])
+                            }])
 
     user_data = [
       {
@@ -206,12 +206,12 @@ describe 'UsersFiltersBrick' do
     include_context 'a user action in sync_domain_client_workspaces mode'
     let(:user_filters) do
       [{
-           login: 'rubydev+admin@gooddata.com',
+        login: 'rubydev+admin@gooddata.com',
            state: 'Washington',
            client_id: 'testingclient'
-       },
+      },
        {
-           login: 'rubydev+admin@gooddata.com',
+         login: 'rubydev+admin@gooddata.com',
            state: 'Oregon',
            client_id: 'testingclient-not-in-filter'
        }]
@@ -283,7 +283,7 @@ describe 'UsersFiltersBrick' do
         expect(test_user_filters.one?).to be(true)
         expression = test_user_filters.first.pretty_expression
         expect(expression).to eq('[State] IN ([Oregon])')
-        update = %[UPDATE "user_filters" SET state = 'Arizona']
+        update = %(UPDATE "user_filters" SET state = 'Arizona')
         @ads_client.execute(update)
         $SCRIPT_PARAMS = @original_params.dup
         GoodData::Bricks::Pipeline.user_filters_brick_pipeline.call($SCRIPT_PARAMS)
@@ -304,17 +304,17 @@ describe 'UsersFiltersBrick' do
     before(:all) do
       @uppercase_login = 'test+UPPERCASE@domain.com'
       upload_user_filters_csv([{
-                                   login: @uppercase_login,
+                                login: @uppercase_login,
                                    state: 'Washington',
                                    client_id: 'testingclient'
-                               }])
+                              }])
       # add user only to domain, not to project to ensure behaviour with api calls using the email string
       unless @domain.users(@uppercase_login)
         @domain.add_user(login: @uppercase_login)
       end
       user_data = [{
-                       custom_login: @uppercase_login
-                   }]
+        custom_login: @uppercase_login
+      }]
       users_csv = ConfigurationHelper.csv_from_hashes(user_data)
       Support::S3Helper.upload_file(users_csv, @test_context[:users_brick_input][:s3_key])
     end
@@ -323,8 +323,8 @@ describe 'UsersFiltersBrick' do
       @test_context[:sync_mode] = 'sync_project'
       @test_context[:data_product] = 'default'
       config_path = ConfigurationHelper.create_interpolated_tempfile(
-          @template_path,
-          @test_context
+        @template_path,
+        @test_context
       )
       $SCRIPT_PARAMS = JSON.parse(File.read(config_path))
       GoodData::Bricks::Pipeline.user_filters_brick_pipeline.call($SCRIPT_PARAMS)
@@ -339,10 +339,10 @@ describe 'UsersFiltersBrick' do
       another_login = 'test@login.com'
       @project_helper.ensure_user(another_login, @domain)
       upload_user_filters_csv([{
-                                   login: 'test@login.com',
+                                login: 'test@login.com',
                                    state: 'Washington',
                                    client_id: 'testingclient'
-                               }])
+                              }])
       users_csv = ConfigurationHelper.csv_from_hashes([])
       Support::S3Helper.upload_file(users_csv, @test_context[:users_brick_input][:s3_key])
     end
@@ -351,8 +351,8 @@ describe 'UsersFiltersBrick' do
       @test_context[:sync_mode] = 'sync_project'
       @test_context[:data_product] = 'default'
       config_path = ConfigurationHelper.create_interpolated_tempfile(
-          @template_path,
-          @test_context
+        @template_path,
+        @test_context
       )
       $SCRIPT_PARAMS = JSON.parse(File.read(config_path))
       GoodData::Bricks::Pipeline.user_filters_brick_pipeline.call($SCRIPT_PARAMS)

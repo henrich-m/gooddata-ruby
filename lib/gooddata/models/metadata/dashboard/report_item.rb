@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -34,13 +35,13 @@ module GoodData
       }
     }
 
-    ASSIGNABLE_MEMBERS = DashboardItem::ASSIGNABLE_MEMBERS + [
-      :filters,
-      :obj,
-      :report,
-      :style,
-      :visualization
-    ]
+    ASSIGNABLE_MEMBERS = DashboardItem::ASSIGNABLE_MEMBERS + %i(
+      filters
+      obj
+      report
+      style
+      visualization
+    )
 
     class << self
       def obj_uri(obj)

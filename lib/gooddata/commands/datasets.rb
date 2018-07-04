@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -130,7 +131,7 @@ module GoodData
         question_fmt = 'Select data type of column #%i (%s)'
         guesser.headers.each_with_index do |header, i|
           options = guess[header].map(&:to_s)
-          options = options.select { |t| t != :connection_point.to_s } if connection_point_set
+          options = options.reject { |t| t == :connection_point.to_s } if connection_point_set
           type = ask((question_fmt % [i + 1, header]), :answers => options)
           model.push :title => header, :name => header, :type => type.upcase
           connection_point_set = true if type == :connection_point.to_s

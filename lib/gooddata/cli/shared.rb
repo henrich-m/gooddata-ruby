@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -23,44 +24,44 @@ module GoodData
     desc 'GoodData user name'
     default_value nil
     arg_name 'gooddata-login'
-    flag [:U, :username, :login]
+    flag %i(U username login)
 
     desc 'GoodData password'
     default_value nil
     arg_name 'gooddata-password'
-    flag [:P, :password]
+    flag %i(P password)
 
     desc 'Project pid'
     default_value nil
     arg_name 'project-id'
-    flag [:p, :project_id]
+    flag %i(p project_id)
 
     desc 'Server'
     default_value GoodData::Helpers::AuthHelper.read_server
     arg_name 'server'
-    flag [:s, :server]
+    flag %i(s server)
 
     desc 'Verify SSL certificate'
     default_value true
     arg_name 'verify-ssl'
-    switch [:'verify-ssl', :verify_ssl]
+    switch %i(verify-ssl verify_ssl)
 
     desc 'WEBDAV Server. Used for uploads of files'
     default_value nil
     arg_name 'web dav server'
-    flag [:w, :webdav_server]
+    flag %i(w webdav_server)
 
     desc 'Token for project creation'
     default_value nil
     arg_name 'token'
-    flag [:t, :token]
+    flag %i(t token)
 
     desc 'Verbose mode'
     arg_name 'verbose'
-    switch [:v, :verbose]
+    switch %i(v verbose)
 
     desc 'Http logger on stdout'
     arg_name 'logger'
-    switch [:l, :logger]
+    switch %i(l logger)
   end
 end

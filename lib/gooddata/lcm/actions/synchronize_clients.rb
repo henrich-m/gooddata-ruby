@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -37,12 +38,12 @@ module GoodData
         param :additional_hidden_params, instance_of(Type::HashType), required: false
       end
 
-      RESULT_HEADER = [
-        :segment,
-        :successful_count,
-        :master_name,
-        :master_pid
-      ]
+      RESULT_HEADER = %i(
+        segment
+        successful_count
+        master_name
+        master_pid
+      )
 
       DEFAULT_TABLE_NAME = 'LCM_RELEASE'
 

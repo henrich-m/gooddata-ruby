@@ -50,7 +50,7 @@ describe GoodData::LCM2::SynchronizeUsers do
           GDC_GD_CLIENT: client,
           input_source: 'foo',
           domain: 'bar',
-          gdc_logger: logger,
+          gdc_logger: logger
         }
         GoodData::LCM2.convert_to_smart_hash(params)
       end

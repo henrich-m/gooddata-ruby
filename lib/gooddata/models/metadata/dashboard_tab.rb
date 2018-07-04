@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -30,11 +31,11 @@ module GoodData
       :items => []
     }
 
-    ASSIGNABLE_MEMBERS = [
-      :title,
-      :items,
-      :identifier
-    ]
+    ASSIGNABLE_MEMBERS = %i(
+      title
+      items
+      identifier
+    )
 
     class << self
       def create(dashboard, tab)

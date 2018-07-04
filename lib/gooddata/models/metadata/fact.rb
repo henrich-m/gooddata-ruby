@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -15,7 +16,7 @@ module GoodData
     include Mixin::IsFact
 
     # TODO: verify that we have all (which we do not right now)
-    FACT_BASE_AGGREGATIONS = [:sum, :min, :max, :avg, :median, :runsum, :runmin, :runmax, :runavg, :runstdev, :runstdevp, :runvar, :runvarp, :stdev, :stdevp, :var, :varp]
+    FACT_BASE_AGGREGATIONS = %i(sum min max avg median runsum runmin runmax runavg runstdev runstdevp runvar runvarp stdev stdevp var varp)
 
     class << self
       # Method intended to get all objects of that type in a specified project

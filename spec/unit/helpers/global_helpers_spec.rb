@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -42,7 +43,7 @@ describe GoodData::Helpers do
     end
 
     it 'diffs two lists of hashes on subset of fields' do
-      diff = GoodData::Helpers.diff(@old_list, @new_list, key: :id, fields: [:id, :age])
+      diff = GoodData::Helpers.diff(@old_list, @new_list, key: :id, fields: %i(id age))
 
       expect(diff[:same]).to eq [@cvengy, @old_tomas]
       expect(diff[:added]).to eq [@petr]

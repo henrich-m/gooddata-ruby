@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -379,7 +380,7 @@ module GoodData
           v.compact
         end
 
-        diff = GoodData::Helpers.diff(remote_stuff, local_stuff, key: :name, fields: [:name, :cron, :after, :params, :hidden_params, :reschedule, :state])
+        diff = GoodData::Helpers.diff(remote_stuff, local_stuff, key: :name, fields: %i(name cron after params hidden_params reschedule state))
         stack = diff[:added].map do |x|
           [:added, x]
         end
@@ -1635,7 +1636,7 @@ module GoodData
       diffable_new = intermediate_new_by_type[:ok] || []
 
       # Diff users. Only login and role is important for the diff
-      diff = GoodData::Helpers.diff(whitelisted_users, diffable_new, key: :login, fields: [:login, :role, :status])
+      diff = GoodData::Helpers.diff(whitelisted_users, diffable_new, key: :login, fields: %i(login role status))
       diff_results = diff.flat_map do |operation, users|
         if operation == :changed
           users.map { |u| u[:new_obj].merge(operation: operation) }

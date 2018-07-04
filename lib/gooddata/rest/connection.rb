@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -29,13 +30,13 @@ module GoodData
       DEFAULT_URL = 'https://secure.gooddata.com'
       LOGIN_PATH = '/gdc/account/login'
       TOKEN_PATH = '/gdc/account/token'
-      KEYS_TO_SCRUB = [:password, :verifyPassword, :authorizationToken]
+      KEYS_TO_SCRUB = %i(password verifyPassword authorizationToken)
 
       ID_LENGTH = 16
 
       DEFAULT_HEADERS = {
         :content_type => :json,
-        :accept => [:json, :zip],
+        :accept => %i(json zip),
         :user_agent => GoodData.gem_version_string
       }
 
@@ -552,7 +553,7 @@ ERR
         retries = options[:tries] || Helpers::GD_MAX_RETRY
         process = options[:process]
         dont_reauth = options[:dont_reauth]
-        options = options.reject { |k, _| [:process, :dont_reauth].include?(k) }
+        options = options.reject { |k, _| %i(process dont_reauth).include?(k) }
         opts = { tries: retries, refresh_token: proc { refresh_token unless dont_reauth } }.merge(options)
         response = GoodData::Rest::Connection.retryable(opts) do
           block.call
@@ -623,9 +624,7 @@ ERR
 
           placeholders = true
 
-          if placeholders
-            title = self.class.map_placeholders(title)
-          end
+          title = self.class.map_placeholders(title) if placeholders
 
           stat = stats[title]
           if stat.nil?

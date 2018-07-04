@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -29,15 +30,15 @@ module GoodData
         param :clients, array_of(instance_of(Type::HashType)), required: false
       end
 
-      RESULT_HEADER = [
-        :project,
-        :pid,
-        :login,
-        :role,
-        :result,
-        :message,
-        :url
-      ]
+      RESULT_HEADER = %i(
+        project
+        pid
+        login
+        role
+        result
+        message
+        url
+      )
 
       class << self
         def call(params)

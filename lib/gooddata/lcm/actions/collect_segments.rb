@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #
 # Copyright (c) 2010-2017 GoodData Corporation. All rights reserved.
 # This source code is licensed under the BSD-style license found in the
@@ -12,7 +13,6 @@ module GoodData
       DESCRIPTION = 'Collect Segments from API'
 
       PARAMS = define_params(self) do
-
         description 'Segments to provision'
         param :segments_filter, array_of(instance_of(Type::StringType)), required: false
 

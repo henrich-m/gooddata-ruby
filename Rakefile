@@ -131,7 +131,7 @@ namespace :license do
 
       puts "Updating #{path}"
 
-      if content_lines.length > 0 && content_lines[0].downcase.strip == '# encoding: utf-8'
+      if !content_lines.empty? && content_lines[0].downcase.strip == '# encoding: utf-8'
         content_lines.slice!(0)
         content_lines.slice!(0) if content_lines[0] == "\n"
       end
@@ -194,9 +194,9 @@ namespace :test do
     Rake::Task['cop'].invoke
   end
 
-  task :all => [:unit, :integration, :cop, :lcm, :project]
-  task :ci => [:unit, :integration, :lcm, :project]
-  task :integration => [:sdk, :project]
+  task :all => %i(unit integration cop lcm project)
+  task :ci => %i(unit integration lcm project)
+  task :integration => %i(sdk project)
 end
 
 desc 'Run all tests'
