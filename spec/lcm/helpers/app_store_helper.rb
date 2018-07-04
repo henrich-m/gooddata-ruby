@@ -60,7 +60,7 @@ module GoodData
           [1, '01/01/2014', 1],
           [3, '01/02/2014', 2],
           [5, '05/02/2014', 3]
-]
+        ]
         project.upload(commits_data, blueprint, 'commits')
 
         devs_data = [
@@ -68,7 +68,7 @@ module GoodData
           [1, 'tomas@gooddata.com'],
           [2, 'petr@gooddata.com'],
           [3, 'jirka@gooddata.com']
-]
+        ]
         project.upload(devs_data, blueprint, 'devs')
 
         # deploy process

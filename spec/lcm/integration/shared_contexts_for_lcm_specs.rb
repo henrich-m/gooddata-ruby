@@ -76,18 +76,18 @@ shared_context 'lcm bricks' do
   before(:all) do
     @config = {
       verify_ssl: false,
-        environment: 'TESTING',
-        master_prefix: 'Insurance Demo Master'
+      environment: 'TESTING',
+      master_prefix: 'Insurance Demo Master'
     }
     @config.merge!(LcmConnectionHelper.environment)
     @config[:ads_client] = {
       username: @config[:username],
-        password: @config[:password]
+      password: @config[:password]
     }
     connection_parameters = {
       username: @config[:username],
-        password: @config[:password],
-        server: "https://#{@config[:dev_server]}"
+      password: @config[:password],
+      server: "https://#{@config[:dev_server]}"
     }
     @rest_client = GoodData.connect(connection_parameters)
 
@@ -126,8 +126,8 @@ shared_context 'lcm bricks' do
 
     prod_connection_parameters = {
       username: @config[:username],
-        password: @config[:password],
-        server: "https://#{@config[:prod_server]}"
+      password: @config[:password],
+      server: "https://#{@config[:prod_server]}"
     }
     @prod_rest_client = GoodData.connect(prod_connection_parameters)
     @prod_ads = ConfigurationHelper.create_development_datawarehouse(client: @prod_rest_client,
@@ -146,10 +146,10 @@ shared_context 'lcm bricks' do
     segments = (%w(BASIC PREMIUM) * ($segments_multiplier || 1)).map.with_index do |segment, i|
       {
         segment_id: "INSURANCE_DEMO_#{segment}_#{i}_#{@suffix}",
-          development_pid: @project.obj_id,
-          driver: segment == 'PREMIUM' ? 'vertica' : 'pg',
-          master_name: "Insurance Demo Master (#{segment} #{i}) " + '##{version}',
-          ads_output_stage_uri: production_output_stage_uri
+        development_pid: @project.obj_id,
+        driver: segment == 'PREMIUM' ? 'vertica' : 'pg',
+        master_name: "Insurance Demo Master (#{segment} #{i}) " + '##{version}',
+        ads_output_stage_uri: production_output_stage_uri
       }
     end
     segments_filter = segments.map { |s| s[:segment_id] }
@@ -157,8 +157,8 @@ shared_context 'lcm bricks' do
     @workspaces = (segments * ($workspaces_multiplier || 2)).map.with_index do |segment, i|
       {
         client_id: "INSURANCE_DEMO_#{i}_#{@suffix}",
-          segment_id: segment[:segment_id],
-          title: "Insurance Demo Workspace #{i} #{@suffix}"
+        segment_id: segment[:segment_id],
+        title: "Insurance Demo Workspace #{i} #{@suffix}"
       }
     end
 
@@ -183,20 +183,20 @@ shared_context 'lcm bricks' do
 
     @test_context = {
       release_table_name: @release_table_name,
-        workspace_table_name: @workspace_table_name,
-        config: @config,
-        ads_client: @ads_client,
-        jdbc_url: @ads.data['connectionUrl'],
-        development_pid: @project.obj_id,
-        segments: segments.to_json,
-        segments_filter: segments_filter.to_json,
-        ads_output_stage_uri: production_output_stage_uri,
-        data_product: @data_product_id,
-        input_source_type: 's3',
-        s3_bucket: bucket_name,
-        s3_endpoint: s3_endpoint,
-        custom_client_id_column: Support::CUSTOM_CLIENT_ID_COLUMN,
-        transfer_all: true
+      workspace_table_name: @workspace_table_name,
+      config: @config,
+      ads_client: @ads_client,
+      jdbc_url: @ads.data['connectionUrl'],
+      development_pid: @project.obj_id,
+      segments: segments.to_json,
+      segments_filter: segments_filter.to_json,
+      ads_output_stage_uri: production_output_stage_uri,
+      data_product: @data_product_id,
+      input_source_type: 's3',
+      s3_bucket: bucket_name,
+      s3_endpoint: s3_endpoint,
+      custom_client_id_column: Support::CUSTOM_CLIENT_ID_COLUMN,
+      transfer_all: true
     }
   end
 
